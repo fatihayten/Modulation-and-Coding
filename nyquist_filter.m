@@ -1,4 +1,4 @@
-function [result] = nyquist_filter(beta,span,sps,F_samp,F_symb)
+function [taps_in_time,taps_in_freq] = nyquist_filter(beta,span,sps,F_samp,F_symb)
 
 % To create this filter, we get inspired from the "rcosdesign" function.
 % Ideal raised cosine filters have an infinite number of taps (i.e., has 
@@ -49,6 +49,8 @@ filter_in_freq_domain = ones(1, taps).*...
 filter_in_freq_domain(abs(f)<limit1)=sqrt(T);
 filter_in_freq_domain(abs(f)>limit2) = 0;
 
+taps_in_freq = filter_in_freq_domain;
+
 % figure;
 % plot(linspace(-F_samp/2,F_samp/2,taps),filter_in_freq_domain)
 % title("Fourier Transform of Nyquist Filter")
@@ -58,7 +60,7 @@ filter_in_freq_domain(abs(f)>limit2) = 0;
 filter_in_time_domain = fftshift(ifft(ifftshift(filter_in_freq_domain)));
 
 % To implement unit energy filter
-result = filter_in_time_domain / sqrt(sum(filter_in_time_domain.^2)); 
+taps_in_time = filter_in_time_domain / sqrt(sum(filter_in_time_domain.^2)); 
 
 
 end
