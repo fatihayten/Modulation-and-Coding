@@ -26,7 +26,7 @@ taps = span*sps+1;
 
 % Using the frequency component "F_sample/2"
 % is not wise, therefore, we leave a margin from positive and negative
-% parts of the frequency axis. Also, sthis margin should be dependent on
+% parts of the frequency axis. Also, this margin should be dependent on
 % taps and sampling frequency.
 freq_margin = (1/taps)*F_samp; 
 
@@ -50,16 +50,15 @@ filter_in_freq_domain(abs(f)<limit1)=sqrt(T);
 filter_in_freq_domain(abs(f)>limit2) = 0;
 
 taps_in_freq = filter_in_freq_domain;
+% Taps in freq domain are created.
 
-% figure;
-% plot(linspace(-F_samp/2,F_samp/2,taps),filter_in_freq_domain)
-% title("Fourier Transform of Nyquist Filter")
-% xlabel("Frquency (Hz)")
 
 % Transforming the filter into time domain
+% By using fftshift and ifftshift, we try to centerize or decenterize the
+% spectrum
 filter_in_time_domain = fftshift(ifft(ifftshift(filter_in_freq_domain)));
 
-% To implement unit energy filter
+% To implement "unit energy" filter
 taps_in_time = filter_in_time_domain / sqrt(sum(filter_in_time_domain.^2)); 
 
 
