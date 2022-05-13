@@ -1,3 +1,0 @@
-for step3-gardner without cfo : zoom in converged errors for the case Tshift = 0.075T which is left-bottom graph, when k=0.2, it converges
-fast, but doesnt reach zero. k = 0.05 is better.
-
